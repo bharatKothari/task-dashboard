@@ -1,0 +1,22 @@
+extends layout
+
+block content
+    form(name = "login",method = "POST")
+        div.input
+            span.label Name 
+            input(type="text",name="name")
+        div.input
+            span.label Email    
+            input(type="text",name="email")
+        div.input
+            span.label Password 
+            input(type="password",name="password")
+        div.input
+            span.label Role 
+            input(type="radio",name="role",value="Manager") 
+            label Manager
+            input(type="radio",name="role",value="Worker") 
+            label Worker
+        div.actions
+            input(type="submit", value="Login")
+        

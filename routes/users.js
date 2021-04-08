@@ -6,7 +6,11 @@ var router = express.Router();
 
 router.use(bodyParser.json())
 
-router.post('/signup',(req,res,next) => {
+router.route('/signup')
+.get((req,res,next) => {
+  res.render('signup',{title : 'Signup'})
+})
+.post((req,res,next) => {
   console.log(req.body)
   User.register(new User({
     email : req.body.email,
@@ -40,6 +44,11 @@ router.post('/signup',(req,res,next) => {
   })
 })
 
+
+
+router.get('/login',(req,res,next) => {
+  res.render('login', {title:'Login'} );
+})
 router.post('/login',authenticate.local,(req,res,next) => {
   user = req.user
   if(user.role === "Manager"){

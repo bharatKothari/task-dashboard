@@ -44,19 +44,16 @@ router.route('/signup')
   })
 })
 
-
-
-router.get('/login',(req,res,next) => {
+router.route('/login')
+.get((req,res,next) => {
   res.render('login', {title:'Login'} );
 })
-router.post('/login',authenticate.local,(req,res,next) => {
+.post(authenticate.local,(req,res,next) => {
   user = req.user
   if(user.role === "Manager"){
     //redirect to /manager
     res.json({
-      name : user.name,
-      email : user.email,
-      role : user.role,
+      user : user,
       token : authenticate.getToken({ email : user.email })
     })
   }
@@ -71,6 +68,11 @@ router.post('/login',authenticate.local,(req,res,next) => {
       token : authenticate.getToken({ email : user.email })
     })
   }
+})
+
+router.route('/profile')
+.get(authenticate.verifyUser,(req,res,next) => {
+  res.json(req.user)
 })
 
 module.exports = router;

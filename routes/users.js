@@ -18,26 +18,10 @@ router.route('/signup')
     role : req.body.role,
   }),req.body.password)
   .then((user) => {
-    if(user.role === "Manager"){
-      //redirect to /manager
-      res.json({
-        name : user.name,
-        email : user.email,
-        role : user.role,
-        token : authenticate.getToken({ email : user.email })
-      })
-    }
-    else{
-      //redirect to /worker
-      res.json({
-        name : user.name,
-        email : user.email,
-        role : user.role,
-        rewards : user.rewards,
-        tasks : user.tasks,
-        token : authenticate.getToken({ email : user.email })
-      })
-    }
+    res.json({
+      user : user,
+      token : authenticate.getToken({ email : user.email })
+    })
   })
   .catch((err) => {
     res.status(409).send(err)
@@ -50,24 +34,10 @@ router.route('/login')
 })
 .post(authenticate.local,(req,res,next) => {
   user = req.user
-  if(user.role === "Manager"){
-    //redirect to /manager
-    res.json({
-      user : user,
-      token : authenticate.getToken({ email : user.email })
-    })
-  }
-  else{
-    //redirect to /worker
-    res.json({
-      name : user.name,
-      email : user.email,
-      role : user.role,
-      rewards : user.rewards,
-      tasks : user.tasks,
-      token : authenticate.getToken({ email : user.email })
-    })
-  }
+  res.json({
+    user : user,
+    token : authenticate.getToken({ email : user.email })
+  })
 })
 
 router.route('/profile')

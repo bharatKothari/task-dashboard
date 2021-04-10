@@ -110,7 +110,7 @@ router.route('/:taskId/review')
                 User.findById(task.user)
                     .then((user) => {
                         console.log(user)
-                        user.points = task.points
+                        user.points += task.points
                         user.save()
                         res.json(task)
                     }).catch((err) => {

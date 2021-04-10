@@ -5,9 +5,9 @@ const Schema = mongoose.Schema;
 const userSchema = new Schema({
     name : String,
     role : String,
-    rewards : Number,
+    points : Number,
     tasks : [{
-        type : Number,
+        type : String,
         ref : "Task"
     }]
 });
